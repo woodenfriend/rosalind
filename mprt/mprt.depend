@@ -1,0 +1,63 @@
+# depslib dependency file v1.0
+1518564627 source:/stuff/Shultz/Lang/rosalind/mprt/main.cpp
+	"../include/fasta.hpp"
+	"../include/url.hpp"
+	<sstream>
+	<iostream>
+	<vector>
+	<regex>
+
+1518559409 /stuff/Shultz/Lang/rosalind/include/fasta.hpp
+	<string>
+	<istream>
+	<functional>
+
+1518556905 source:/stuff/Shultz/Lang/rosalind/source/get_url.cpp
+	"../include/get_url.hpp"
+	<curl/curl.h>
+	<boost/optional.hpp>
+
+1518555615 /stuff/Shultz/Lang/rosalind/include/get_url.hpp
+	<ostream>
+	<memory>
+
+1518560068 source:/stuff/Shultz/Lang/rosalind/source/fasta.cpp
+	"../include/fasta.hpp"
+	<exception>
+
+1518564807 source:/stuff/Shultz/Lang/rosalind/source/url.cpp
+	"../include/url.hpp"
+	<curl/curl.h>
+
+1518557450 /stuff/Shultz/Lang/rosalind/include/url.hpp
+	<ostream>
+	<memory>
+
+1647288441 source:/mnt/mala/Shultz/Lang/rosalind/common/fasta.cpp
+	"fasta.hpp"
+	"error.hpp"
+
+1647288441 /mnt/mala/Shultz/Lang/rosalind/common/fasta.hpp
+	<string>
+	<istream>
+	<functional>
+
+1647269475 /mnt/mala/Shultz/Lang/rosalind/common/error.hpp
+	<stdexcept>
+
+1647293787 source:/mnt/mala/Shultz/Lang/rosalind/common/web.cpp
+	"web.hpp"
+	<curl/curl.h>
+
+1647293787 /mnt/mala/Shultz/Lang/rosalind/common/web.hpp
+	<ostream>
+	<memory>
+
+1647294734 source:/mnt/mala/Shultz/Lang/rosalind/mprt/main.cpp
+	"../common/fasta.hpp"
+	"../common/web.hpp"
+	<sstream>
+	<iostream>
+	<vector>
+	<regex>
+
