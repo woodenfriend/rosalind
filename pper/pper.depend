@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1647347319 source:/mnt/mala/Shultz/Lang/rosalind/pper/main.cpp
+	"../common/error.hpp"
+	<iostream>
+	<limits>
+	<cmath>
+	<tbb/parallel_reduce.h>
+	<tbb/blocked_range.h>
+
+1647269475 /mnt/mala/Shultz/Lang/rosalind/common/error.hpp
+	<stdexcept>
+
