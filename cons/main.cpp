@@ -8,23 +8,23 @@
 class Profile
 {
 public:
-	void add ( const fasta::Entry& s )
+	void add ( const fasta::Entry& f )
 	{
 		if ( ! m_length )
-			m_length = s.data.size();
+			m_length = f.data.size();
 		else
-			validate ( *m_length == s.data.size(), "DNA strings must be the same length" );
+			validate ( *m_length == f.data.size(), "DNA strings must be the same length" );
 
 		for ( size_t i = 0; i < *m_length; ++i )
 		{
-			auto& counts = m_profile[s.data[i]];
+			auto& counts = m_profile[f.data[i]];
 			if ( counts.empty() )
 				counts.assign ( *m_length, 0 );
 			++counts[i];
 		}
 	}
 
-	void show_consensus ( std::ostream& s )
+	void showConsensus ( std::ostream& s )
 	{
 		for ( size_t i = 0; i < *m_length; ++i )
 		{
@@ -44,7 +44,7 @@ public:
 		s << std::endl;
 	}
 
-	void show_profile ( std::ostream& s )
+	void showProfile ( std::ostream& s )
 	{
 		for ( const auto& i : m_profile )
 		{
@@ -65,8 +65,8 @@ void run ( )
 	Profile profile;
 	fasta::readSeries ( std::cin, [&profile]( fasta::Entry&& f ){ profile.add( f ); } );
 
-	profile.show_consensus ( std::cout );
-	profile.show_profile ( std::cout );
+	profile.showConsensus ( std::cout );
+	profile.showProfile ( std::cout );
 }
 
 int main ( )
