@@ -41,7 +41,7 @@ private:
 		if ( m_s1.size() > m_s2.size() )
 			std::swap ( m_s1, m_s2 );
 		for ( size_t i1 = 0; i1 < m_s1.size(); ++i1 )
-			for ( size_t i2 = 0; i2 < m_s2.size(); ++i2)
+			for ( size_t i2 = 0; i2 < m_s2.size(); ++i2 )
 			{
 				i2 = m_s2.find ( m_s1[i1], i2 );
 				if ( i2 == std::string::npos )
