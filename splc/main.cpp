@@ -2,19 +2,16 @@
 #include "../common/protein.hpp"
 #include "../common/fasta.hpp"
 #include <boost/container/static_vector.hpp>
-#include <boost/iterator/transform_iterator.hpp>
 #include <optional>
 #include <iostream>
 #include <algorithm>
-#include <set>
 
-template<class Iterator, class OutIterator>
-void buildProteins ( Iterator begin, Iterator end, OutIterator output )
+void translateProtein ( const std::string& s, std::string& protein )
 {
 	const auto& start = aa2codon ( AA::START );
 	const auto& stop  = aa2codon ( AA::STOP );
 
-	for ( ; begin != end; ++begin )
+	for ( auto begin = s.begin(), end = s.end(); begin != end; ++begin )
 	{
 		boost::container::static_vector<char, 3> buf;
 		auto i = begin;
@@ -45,7 +42,6 @@ void buildProteins ( Iterator begin, Iterator end, OutIterator output )
 		if ( ! start_c )
 			continue;
 
-		std::string protein;
 		protein.push_back ( aa2symbol( codon2aa( *start_c ) ) );
 
 		std::optional<Codon> stop_c;
@@ -69,43 +65,28 @@ void buildProteins ( Iterator begin, Iterator end, OutIterator output )
 		if ( ! stop_c )
 			continue;
 
-		if ( ! protein.empty() )
-			*output = protein;
+		break;
 	}
 }
 
 void run ( )
 {
-	fasta::Entry f;
-	fasta::readSingleEntry ( std::cin, f );
-
-	std::set<std::string> proteins;
-
-	buildProteins (
-		f.data.begin(),
-		f.data.end(),
-		std::inserter( proteins, proteins.end() )
-	);
-
-	auto complement = []( char c )
-	{
-		switch ( c )
+	std::optional<std::string> data;
+	fasta::readSeries ( std::cin,
+		[&data]( fasta::Entry&& f )
 		{
-			default: fail ( "bad nucleotide" );
-			case 'A': return 'T';
-			case 'T': return 'A';
-			case 'G': return 'C';
-			case 'C': return 'G';
+			if ( ! data )
+				data = std::move ( f.data );
+			else
+				for ( size_t pos; ( pos = data->find( f.data ) ) != std::string::npos; )
+					data->erase ( pos, f.data.length() );
 		}
-	};
-	buildProteins (
-		boost::make_transform_iterator( f.data.rbegin(), complement ),
-		boost::make_transform_iterator( f.data.rend(), complement ),
-		std::inserter( proteins, proteins.end() )
 	);
+	validate ( !! data, "no data" );
 
-	for ( const auto& protein : proteins )
-		std::cout << protein << std::endl;
+	std::string protein;
+	translateProtein ( *data, protein );
+	std::cout << protein << std::endl;
 }
 
 int main ( )
