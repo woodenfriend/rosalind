@@ -22,7 +22,7 @@ void findLongestSubsequence ( const std::vector<T>& s, Comparer&& comparer, std:
 	for ( size_t i_prev = 0; i_prev < s.size(); ++i_prev )
 		for ( size_t i = i_prev + 1; i < s.size(); ++i )
 		{
-            if ( ! comparer( s[i_prev], s[i] ) )
+			if ( ! comparer( s[i_prev], s[i] ) )
 				continue;
 
 			const size_t steps = links[i_prev].max_steps + 1;
@@ -34,7 +34,7 @@ void findLongestSubsequence ( const std::vector<T>& s, Comparer&& comparer, std:
 		}
 
 	size_t i_last = 0;
-    for ( size_t i = 1; i < links.size(); ++i )
+	for ( size_t i = 1; i < links.size(); ++i )
 		if ( links[i].max_steps > links[i_last].max_steps )
 			i_last = i;
 	subs.reserve ( links[i_last].max_steps + 1 );
